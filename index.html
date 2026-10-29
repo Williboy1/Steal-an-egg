@@ -294,4 +294,11 @@ document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement
 addEventListener('keydown',e=>{if(e.key=='Escape'){if(stage.classList.contains('modal'))stage.classList.remove('modal');else if(stage.classList.contains('fs'))fsOff()}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)persist()});addEventListener('pagehide',persist);
 setInterval(ui,500);setInterval(save,5000);setInterval(cloud,20000);init();ui();requestAnimationFrame(loop);
-</script></body></html>
+</script></body><div id="accountPanel" style="position:fixed;top:10px;left:10px;z-index:9999;background:#222;color:white;padding:15px;border:2px solid #ffd700;border-radius:10px;font-family:Arial;">
+  <h3>🥚 Steal an Egg Account</h3>
+  <input id="accountUsername" maxlength="20" placeholder="Username">
+  <input id="accountPassword" type="password" placeholder="Password (min. 8)">
+  <button id="createAccountBtn">Create Account</button>
+  <button id="loginBtn">Log In</button>
+  <div id="accountStatus">Not logged in</div>
+</div></html>
