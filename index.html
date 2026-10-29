@@ -294,7 +294,44 @@ document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement
 addEventListener('keydown',e=>{if(e.key=='Escape'){if(stage.classList.contains('modal'))stage.classList.remove('modal');else if(stage.classList.contains('fs'))fsOff()}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)persist()});addEventListener('pagehide',persist);
 setInterval(ui,500);setInterval(save,5000);setInterval(cloud,20000);init();ui();requestAnimationFrame(loop);
-</script></body><div id="accountPanel" style="position:fixed;top:10px;left:10px;z-index:9999;background:#222;color:white;padding:15px;border:2px solid #ffd700;border-radius:10px;font-family:Arial;">
+</script></body><div id="accountPanel" style="
+  position:fixed; inset:0; z-index:99999;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at top,#35445b 0%,#111827 55%,#080b12 100%);
+  color:white; font-family:Arial,sans-serif; text-align:center;
+">
+  <div style="
+    width:min(90%,380px); box-sizing:border-box;
+    padding:32px 26px; border-radius:22px;
+    background:rgba(15,23,42,.96);
+    border:2px solid #facc15;
+    box-shadow:0 0 40px rgba(250,204,21,.18);
+  ">
+    <div style="font-size:48px;">🥚</div>
+    <h1 style="font-size:32px; margin:8px 0; color:#facc15;">STEAL AN EGG</h1>
+    <p style="color:#cbd5e1; margin:0 0 24px;">Log in to enter the game</p>
+
+    <input id="accountUsername" maxlength="20" placeholder="Username"
+      style="width:100%;box-sizing:border-box;padding:13px;margin:7px 0;border-radius:9px;border:1px solid #475569;background:#1e293b;color:white;font-size:16px;">
+
+    <input id="accountPassword" type="password" placeholder="Password (min. 8)"
+      style="width:100%;box-sizing:border-box;padding:13px;margin:7px 0 15px;border-radius:9px;border:1px solid #475569;background:#1e293b;color:white;font-size:16px;">
+
+    <button id="createAccountBtn"
+      style="width:100%;padding:13px;margin:5px 0;border:0;border-radius:9px;background:#facc15;color:#111827;font-size:16px;font-weight:bold;cursor:pointer;">
+      CREATE ACCOUNT
+    </button>
+
+    <button id="loginBtn"
+      style="width:100%;padding:13px;margin:5px 0;border:1px solid #64748b;border-radius:9px;background:#334155;color:white;font-size:16px;font-weight:bold;cursor:pointer;">
+      LOG IN
+    </button>
+
+    <div id="accountStatus" style="min-height:20px;margin-top:14px;color:#facc15;font-size:14px;">
+      Please log in or create an account
+    </div>
+  </div>
+</div> style="position:fixed;top:10px;left:10px;z-index:9999;background:#222;color:white;padding:15px;border:2px solid #ffd700;border-radius:10px;font-family:Arial;">
   <h3>🥚 Steal an Egg Account</h3>
   <input id="accountUsername" maxlength="20" placeholder="Username">
   <input id="accountPassword" type="password" placeholder="Password (min. 8)">
