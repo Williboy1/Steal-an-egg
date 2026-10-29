@@ -294,7 +294,62 @@ document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement
 addEventListener('keydown',e=>{if(e.key=='Escape'){if(stage.classList.contains('modal'))stage.classList.remove('modal');else if(stage.classList.contains('fs'))fsOff()}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)persist()});addEventListener('pagehide',persist);
 setInterval(ui,500);setInterval(save,5000);setInterval(cloud,20000);init();ui();requestAnimationFrame(loop);
-</script></body><div id="accountPanel" style="
+</script>
+<script>
+const accountStatus = document.getElementById("accountStatus");
+
+async function accountAction(action) {
+  const username = document.getElementById("accountUsername").value.trim();
+  const password = document.getElementById("accountPassword").value;
+
+  if (!username || !password) {
+    accountStatus.textContent = "Enter username and password.";
+    return;
+  }
+
+  accountStatus.textContent = "Please wait...";
+
+  try {
+    const response = await fetch(
+      "https://tjxbctwbgjwocuzduvuf.supabase.co/functions/v1/username-auth",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": "sb_publishable_WFPbdVZQKMCtGO8YHMfVKQ_MP-8gxGz"
+        },
+        body: JSON.stringify({ action, username, password })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || result.error) {
+      accountStatus.textContent = result.error || "Something went wrong.";
+      return;
+    }
+
+    if (result.session) {
+      localStorage.setItem("sae2_account_session", JSON.stringify(result.session));
+    }
+
+    accountStatus.textContent = "Logged in as " + result.username + "!";
+
+    document.getElementById("accountPanel").style.display = "none";
+  } catch (error) {
+    accountStatus.textContent = "Connection error. Please try again.";
+  }
+}
+
+document.getElementById("createAccountBtn").addEventListener("click", () => {
+  accountAction("signup");
+});
+
+document.getElementById("loginBtn").addEventListener("click", () => {
+  accountAction("login");
+});
+</script>
+</body><div id="accountPanel" style="
   position:fixed; inset:0; z-index:99999;
   display:flex; align-items:center; justify-content:center;
   background:radial-gradient(circle at top,#35445b 0%,#111827 55%,#080b12 100%);
